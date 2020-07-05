@@ -15,7 +15,7 @@ Options:
     -h, --help         Show this message.
 ";
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 pub struct Args {
     cmd_bench: bool,
     flag_size: usize,
@@ -25,7 +25,6 @@ pub struct Args {
 use docopt::Docopt;
 use rand::distributions::Standard;
 use rand::Rng;
-use rayon;
 use std::time::Instant;
 
 pub trait Joiner {
@@ -108,7 +107,7 @@ pub fn is_sorted<T: Send + Ord>(v: &[T]) -> bool {
 }
 
 fn default_vec(n: usize) -> Vec<u32> {
-    let mut rng = ::seeded_rng();
+    let rng = crate::seeded_rng();
     rng.sample_iter(&Standard).take(n).collect()
 }
 

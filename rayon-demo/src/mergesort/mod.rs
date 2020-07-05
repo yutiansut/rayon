@@ -18,14 +18,13 @@ Options:
     -h, --help         Show this message.
 ";
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 pub struct Args {
     cmd_bench: bool,
     flag_size: usize,
 }
 
 use docopt::Docopt;
-use rayon;
 
 use std::cmp::max;
 use std::time::Instant;
@@ -217,7 +216,7 @@ pub fn is_sorted<T: Send + Ord>(v: &mut [T]) -> bool {
 }
 
 fn default_vec(n: usize) -> Vec<u32> {
-    let mut rng = ::seeded_rng();
+    let rng = crate::seeded_rng();
     rng.sample_iter(&Standard).take(n).collect()
 }
 

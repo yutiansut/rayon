@@ -4,9 +4,9 @@ use rand::seq::SliceRandom;
 use rayon::prelude::*;
 use test::Bencher;
 
-lazy_static! {
+lazy_static::lazy_static! {
     static ref HAYSTACK: String = {
-        let mut rng = ::seeded_rng();
+        let mut rng = crate::seeded_rng();
         let mut bytes: Vec<u8> = "abcdefg ".bytes().cycle().take(1_000_000).collect();
         bytes.shuffle(&mut rng);
         String::from_utf8(bytes).unwrap()

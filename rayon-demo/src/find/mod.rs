@@ -8,9 +8,9 @@ macro_rules! make_tests {
             use rayon::prelude::*;
             use test::Bencher;
 
-            lazy_static! {
+            lazy_static::lazy_static! {
                 static ref HAYSTACK: Vec<[u32; $n]> = {
-                    let mut rng = ::seeded_rng();
+                    let rng = crate::seeded_rng();
                     rng.sample_iter(&Standard)
                         .map(|x| {
                             let mut result: [u32; $n] = [0; $n];
